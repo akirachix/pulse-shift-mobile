@@ -16,7 +16,6 @@ import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
-//import androidx.compose.ui.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -89,21 +88,21 @@ fun MtaaniWelcomeSplashScreen(navController: NavController) {
         Canvas(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(100.dp)
+                .height(200.dp)
                 .align(Alignment.BottomCenter)
         ) {
             val width = size.width
             val height = size.height
             drawPath(
                 path = Path().apply {
-                    moveTo(0f, height * 0.3f)
+                    moveTo(0f, height * 0.5f)
                     quadraticBezierTo(
-                        width * 0.25f, height * 0.0f,
-                        width * 0.5f, height * 0.2f
+                        width * 0.25f, height * 0.2f,
+                        width * 0.5f, height * 0.4f
                     )
                     quadraticBezierTo(
-                        width * 0.75f, height * 0.4f,
-                        width, height * 0.1f
+                        width * 0.75f, height * 0.6f,
+                        width, height * 0.3f
                     )
                     lineTo(width, height)
                     lineTo(0f, height)
@@ -147,21 +146,21 @@ fun MtaaniOnboardingFirstScreen(navController: NavController) {
         Canvas(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(100.dp)
+                .height(200.dp)
                 .align(Alignment.BottomCenter)
         ) {
             val width = size.width
             val height = size.height
             drawPath(
                 path = Path().apply {
-                    moveTo(0f, height * 0.3f)
+                    moveTo(0f, height * 0.5f)
                     quadraticBezierTo(
-                        width * 0.25f, height * 0.0f,
-                        width * 0.5f, height * 0.2f
+                        width * 0.25f, height * 0.2f,
+                        width * 0.5f, height * 0.4f
                     )
                     quadraticBezierTo(
-                        width * 0.75f, height * 0.4f,
-                        width, height * 0.1f
+                        width * 0.75f, height * 0.6f,
+                        width, height * 0.3f
                     )
                     lineTo(width, height)
                     lineTo(0f, height)
@@ -176,12 +175,7 @@ fun MtaaniOnboardingFirstScreen(navController: NavController) {
 @Composable
 fun MtaaniOnboardingSecondScreen(navController: NavController) {
     Box(modifier = Modifier.fillMaxSize()) {
-        IconButton(
-            onClick = { navController.popBackStack() },
-            modifier = Modifier.align(Alignment.TopStart).padding(16.dp)
-        ) {
-            Icon(painter = painterResource(R.drawable.outline_arrow_back_24), contentDescription = "Back")
-        }
+
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center,
@@ -277,11 +271,19 @@ fun MtaaniSignUpScreen(navController: NavHostController) {
     var passwordVisibility by remember { mutableStateOf(false) }
     var confirmPasswordVisibility by remember { mutableStateOf(false) }
     val imageRes = painterResource(id = R.drawable.mtaani_signup)
+
     Box(
         modifier = Modifier
             .fillMaxSize()
             .background(Color.LightGray.copy(alpha = 0.1f))
     ) {
+        IconButton(
+            onClick = { navController.popBackStack() },
+            modifier = Modifier.align(Alignment.TopStart).padding(16.dp)
+        ) {
+            Icon(painter = painterResource(R.drawable.outline_arrow_back_24), contentDescription = "Back")
+        }
+
         Column(
             modifier = Modifier
                 .fillMaxWidth()
@@ -426,4 +428,3 @@ fun MtaaniHoverableStyledButton(
         )
     }
 }
-
