@@ -274,7 +274,7 @@ fun ForgotPasswordScreen2(onSendOtp: () -> Unit) {
             OutlinedTextField(
                 value = email,
                 onValueChange = { email = it },
-                label = { Text("Enter your Email",fontFamily = Nunito, fontWeight = FontWeight.SemiBold,  fontSize = 20.sp) },
+                label = { Text("Enter Email",fontFamily = Nunito, fontWeight = FontWeight.SemiBold,  fontSize = 15.sp) },
                 isError = email.isNotBlank() && !isEmailValid,
                 colors = OutlinedTextFieldDefaults.colors(
                     unfocusedBorderColor = Color.Black,
