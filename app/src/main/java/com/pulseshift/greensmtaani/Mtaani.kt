@@ -3,7 +3,10 @@ package com.pulseshift.greensmtaani
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material3.*
@@ -16,6 +19,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
@@ -45,6 +49,7 @@ fun SignInScreen2(
         modifier = Modifier
             .fillMaxSize()
             .background(Color.White)
+            .imePadding()
     ) {
         Image(
             painter = painterResource(id = R.drawable.signinimage),
@@ -55,6 +60,7 @@ fun SignInScreen2(
         )
         Column(
             Modifier
+                .verticalScroll(rememberScrollState())
                 .padding(horizontal = 24.dp, vertical = 32.dp)
                 .fillMaxWidth()
                 .align(Alignment.Center),
@@ -239,8 +245,8 @@ fun ForgotPasswordScreen2(onSendOtp: () -> Unit) {
             contentDescription = null,
             modifier = Modifier
                 .fillMaxWidth(1.00f)
-                .heightIn(min = 0.dp, max = 442.dp)
-                .aspectRatio(0.20f),
+                .height(442.dp),
+            contentScale = ContentScale.Crop,
 
             )
 
@@ -337,9 +343,10 @@ fun ResetPasswordScreen2(onChangePassword: () -> Unit) {
             contentDescription = null,
             modifier = Modifier
                 .fillMaxWidth(1.00f)
-                .heightIn(min = 0.dp, max = 442.dp)
-                .aspectRatio(0.20f),
-        )
+                .height(442.dp),
+            contentScale = ContentScale.Crop,
+
+            )
         Spacer(Modifier.height(18.dp))
         Box(
             modifier = Modifier
@@ -497,15 +504,16 @@ fun EnterOtpScreen(
             painter = painterResource(id = R.drawable.forgotpasswordimage1),
             contentDescription = null,
             modifier = Modifier
-                .fillMaxWidth()
-                .heightIn(min = 0.dp, max = 442.dp)
-                .aspectRatio(0.20f),
-        )
+                .fillMaxWidth(1.00f)
+                .height(442.dp),
+            contentScale = ContentScale.Crop,
+
+            )
         Spacer(Modifier.height(2.dp))
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 24.dp, vertical = 15.dp),
+                .padding(horizontal = 24.dp, vertical = 8.dp),
             contentAlignment = Alignment.Center
         ) {
             Text(
@@ -528,7 +536,7 @@ fun EnterOtpScreen(
                 textAlign = TextAlign.Center
             )
         }
-        Spacer(Modifier.height(28.dp))
+        Spacer(Modifier.height(18.dp))
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -563,7 +571,10 @@ fun EnterOtpScreen(
                         .height(64.dp)
                         .background(Color.White, shape = RoundedCornerShape(8.dp)),
                     shape = RoundedCornerShape(12.dp),
-                    singleLine = true
+                    singleLine = true,
+                    keyboardOptions = KeyboardOptions.Default.copy(
+                        keyboardType = KeyboardType.Number
+                    )
                 )
             }
         }
