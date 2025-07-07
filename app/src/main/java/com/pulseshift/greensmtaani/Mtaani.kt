@@ -72,7 +72,7 @@ fun MtaaniWelcomeSplashScreen(navController: NavController) {
         Canvas(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(190.dp)
+                .height(200.dp)
                 .align(Alignment.BottomCenter)
         ) {
             val width = size.width
@@ -146,7 +146,7 @@ fun OnboardingScreen1(navController: NavController) {
         BottomWave()
         Box(
             modifier = Modifier
-                .padding(bottom = 130.dp, end = 35.dp)
+                .padding(bottom = 110.dp, end = 35.dp)
                 .align(Alignment.BottomEnd)
         ) {
             CircleButton { navController.navigate("onboarding2") }
@@ -209,7 +209,7 @@ fun OnboardingScreen2(navController: NavController) {
         BottomWave()
         Box(
             modifier = Modifier
-                .padding(bottom = 130.dp, end = 35.dp)
+                .padding(bottom = 110.dp, end = 35.dp)
                 .align(Alignment.BottomEnd)
         ) {
             CircleButton { navController.navigate("onboarding3") }
@@ -521,7 +521,7 @@ fun BottomWave() {
         Canvas(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(190.dp)
+                .height(200.dp)
                 .align(Alignment.BottomCenter)
         ) {
             val width = size.width
