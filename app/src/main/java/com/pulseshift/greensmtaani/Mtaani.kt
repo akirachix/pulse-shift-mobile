@@ -40,12 +40,17 @@ fun SignInScreen2(
     var passwordVisible by remember { mutableStateOf(false) }
     var emailError by remember { mutableStateOf<String?>(null) }
     var passwordError by remember { mutableStateOf<String?>(null) }
-    fun isValidEmail(input: String): Boolean {
-        return android.util.Patterns.EMAIL_ADDRESS.matcher(input).matches()
+fun isValidEmail(input: String): Boolean {
+    return android.util.Patterns.EMAIL_ADDRESS.matcher(input).matches()
+}
+    fun isValidKenyanPhone(input: String): Boolean {
+        return input.matches(Regex("^(?:\\+254|254|0)(7|1)\\d{8}$"))
     }
-    val isFormValid = email.isNotBlank() && isValidEmail(email) &&
-            password.isNotBlank() && password.length >= 4
-
+    fun isValidEmailOrPhone(input: String): Boolean {
+        return isValidEmail(input) || isValidKenyanPhone(input)
+    }
+    val isFormValid = email.isNotBlank() && isValidEmailOrPhone(email) &&
+            password.isNotBlank() && password.length >= 6
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -75,8 +80,8 @@ fun SignInScreen2(
                     email = it
                     emailError = null
                 },
-                label = { Text("Email",fontFamily = Nunito,color = Color.Black, fontWeight = FontWeight.SemiBold) },
-                textStyle = LocalTextStyle.current.copy(fontSize = 20.sp),
+                label = { Text("Email/Phone",fontFamily = Nunito,color = Color.Black, fontWeight = FontWeight.SemiBold) },
+                textStyle = LocalTextStyle.current.copy(fontSize = 15.sp),
                 modifier = Modifier
                     .width(350.dp)
                     .height(64.dp)
@@ -117,7 +122,7 @@ fun SignInScreen2(
                 },
                 label = { Text("Password",fontFamily = Nunito,color = Color.Black, fontWeight = FontWeight.SemiBold) },
                 isError = passwordError != null,
-                textStyle = LocalTextStyle.current.copy(fontSize = 20.sp),
+                textStyle = LocalTextStyle.current.copy(fontSize = 15.sp),
                 modifier = Modifier
                     .width(350.dp)
                     .height(64.dp)
@@ -185,8 +190,8 @@ fun SignInScreen2(
             Button(
                 onClick = {
                     emailError = when {
-                        email.isBlank() -> "Email is required"
-                        !isValidEmail(email) -> "Enter a valid email"
+                        email.isBlank() -> "Email or phone is required"
+                        !isValidEmailOrPhone(email) -> "Enter a valid email or Kenyan phone number"
                         else -> null
                     }
                     passwordError = when {
@@ -234,9 +239,16 @@ fun SignInScreen2(
 @Composable
 fun ForgotPasswordScreen2(onSendOtp: () -> Unit) {
     var email by remember { mutableStateOf("") }
-    val emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"
-    val isEmailValid = email.matches(emailPattern.toRegex())
-    val isButtonEnabled = email.isNotBlank() && isEmailValid
+fun isValidEmail(input: String): Boolean {
+    return android.util.Patterns.EMAIL_ADDRESS.matcher(input).matches()
+}
+    fun isValidKenyanPhone(input: String): Boolean {
+        return input.matches(Regex("^(?:\\+254|254|0)(7|1)\\d{8}$"))
+    }
+    fun isValidEmailOrPhone(input: String): Boolean {
+        return isValidEmail(input) || isValidKenyanPhone(input)
+    }
+    val isButtonEnabled = email.isNotBlank() && isValidEmailOrPhone(email)
     Column(
         modifier = Modifier
             .fillMaxSize(),
@@ -274,8 +286,8 @@ fun ForgotPasswordScreen2(onSendOtp: () -> Unit) {
             OutlinedTextField(
                 value = email,
                 onValueChange = { email = it },
-                label = { Text("Enter Email",fontFamily = Nunito, fontWeight = FontWeight.SemiBold,  fontSize = 15.sp) },
-                isError = email.isNotBlank() && !isEmailValid,
+                label = { Text("Enter Email/Phone",fontFamily = Nunito, fontWeight = FontWeight.SemiBold,  fontSize = 15.sp) },
+                isError = email.isNotBlank() && !isValidEmailOrPhone(email),
                 colors = OutlinedTextFieldDefaults.colors(
                     unfocusedBorderColor = Color.Black,
                     focusedLabelColor = Color.Black,
@@ -291,11 +303,11 @@ fun ForgotPasswordScreen2(onSendOtp: () -> Unit) {
                 shape = RoundedCornerShape(12.dp),
                 singleLine = true
             )}
-        if (email.isNotBlank() && !isEmailValid) {
+        if (email.isNotBlank() && !isValidEmailOrPhone(email)) {
             Box(modifier = Modifier.fillMaxWidth(),
                 contentAlignment = Alignment.Center){
                 Text(
-                    "Please enter a valid email address",
+                    "Please enter a valid email address/Phone number",
                     color = Color.Red,
                     fontSize = 12.sp,
                     fontFamily = Nunito,
@@ -376,7 +388,7 @@ fun EnterOtpScreen(
             contentAlignment = Alignment.Center
         ) {
             Text(
-                "Enter the code sent to your email.",
+                "Enter the code sent to your email/phone.",
                 fontSize = 20.sp,
                 fontWeight = FontWeight.SemiBold,
                 fontFamily = Nunito,
