@@ -26,6 +26,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontFamily
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import com.pulseshift.greensmtaani.ui.theme.Nunito
@@ -74,13 +75,15 @@ fun MtaaniWelcomeSplashScreen(navController: NavController) {
                         text = "GREENS",
                         fontSize = 35.sp,
                         color = Color(0xFF4CAF50),
-                        fontWeight = FontWeight.Bold
+                        fontWeight = FontWeight.Bold,
+                        fontFamily = Nunito
                     )
                     Text(
                         text = "MTAANI",
                         fontSize = 35.sp,
                         color = Color(0xFFFF6F00),
-                        fontWeight = FontWeight.Bold
+                        fontWeight = FontWeight.Bold,
+                        fontFamily = Nunito
                     )
                 }
             }
@@ -175,7 +178,6 @@ fun MtaaniOnboardingFirstScreen(navController: NavController) {
 @Composable
 fun MtaaniOnboardingSecondScreen(navController: NavController) {
     Box(modifier = Modifier.fillMaxSize()) {
-
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center,
@@ -187,7 +189,13 @@ fun MtaaniOnboardingSecondScreen(navController: NavController) {
                 modifier = Modifier.fillMaxWidth().height(390.dp)
             )
             Spacer(modifier = Modifier.height(40.dp))
-            Text("Order fresh fruits and vegetables from local vendors.", fontSize = 20.sp, textAlign = TextAlign.Center, fontWeight = FontWeight.Bold)
+            Text(
+                "Order fresh fruits and vegetables from local vendors.",
+                fontSize = 20.sp,
+                textAlign = TextAlign.Center,
+                fontWeight = FontWeight.Bold,
+                fontFamily = Nunito
+            )
             Spacer(modifier = Modifier.height(56.dp))
             Button(
                 onClick = { navController.navigate("third") },
@@ -195,7 +203,10 @@ fun MtaaniOnboardingSecondScreen(navController: NavController) {
                 shape = RoundedCornerShape(30),
                 modifier = Modifier.fillMaxWidth(0.6f).height(48.dp)
             ) {
-                Text("Get Started", style = TextStyle(fontSize = 16.sp, fontWeight = FontWeight.Medium))
+                Text(
+                    "Get Started",
+                    style = TextStyle(fontSize = 16.sp, fontWeight = FontWeight.Medium, fontFamily = Nunito)
+                )
             }
         }
     }
@@ -222,7 +233,13 @@ fun MtaaniOnboardingThirdScreen(navController: NavController) {
                 modifier = Modifier.fillMaxWidth().height(360.dp)
             )
             Spacer(modifier = Modifier.height(32.dp))
-            Text("Get started with your fresh food journey!", fontSize = 20.sp, fontWeight = FontWeight.Bold, textAlign = TextAlign.Center)
+            Text(
+                "Get started with your fresh food journey!",
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold,
+                textAlign = TextAlign.Center,
+                fontFamily = Nunito
+            )
             Spacer(modifier = Modifier.height(24.dp))
             Row(
                 modifier = Modifier
@@ -236,7 +253,8 @@ fun MtaaniOnboardingThirdScreen(navController: NavController) {
                     modifier = Modifier
                         .weight(1f)
                         .height(45.dp),
-                    green = green
+                    green = green,
+                    fontFamily = Nunito
                 )
                 Spacer(modifier = Modifier.width(16.dp))
                 MtaaniHoverableStyledButton(
@@ -245,18 +263,29 @@ fun MtaaniOnboardingThirdScreen(navController: NavController) {
                     modifier = Modifier
                         .weight(1f)
                         .height(45.dp),
-                    green = green
+                    green = green,
+                    fontFamily = Nunito
                 )
             }
             Spacer(modifier = Modifier.height(26.dp))
-            Text(text = "OR", fontWeight = FontWeight.Bold, fontSize = 14.sp)
+            Text(
+                text = "OR",
+                fontWeight = FontWeight.Bold,
+                fontSize = 14.sp,
+                fontFamily = Nunito
+            )
             Spacer(modifier = Modifier.height(26.dp))
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Image(
                     painter = painterResource(id = R.drawable.ic_google),
                     contentDescription = "Google Logo"
                 )
-                Text(text = "Continue with Google", fontWeight = FontWeight.Medium, modifier = Modifier.padding(start = 15.dp))
+                Text(
+                    text = "Continue with Google",
+                    fontWeight = FontWeight.Medium,
+                    modifier = Modifier.padding(start = 15.dp),
+                    fontFamily = Nunito
+                )
             }
         }
     }
@@ -302,34 +331,37 @@ fun MtaaniSignUpScreen(navController: NavHostController) {
                 fontSize = 38.sp,
                 color = Color(0xFF4CAF50),
                 fontWeight = FontWeight.Bold,
-                modifier = Modifier.padding(top = 16.dp)
+                modifier = Modifier.padding(top = 16.dp),
+                fontFamily = Nunito
             )
 
             OutlinedTextField(
                 value = name,
                 onValueChange = { name = it },
-                label = { Text("Name") },
+                label = { Text("Name", fontFamily = Nunito) },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(top = 16.dp),
-                shape = RoundedCornerShape(10.dp)
+                shape = RoundedCornerShape(10.dp),
+                textStyle = TextStyle(fontFamily = Nunito)
             )
 
             OutlinedTextField(
                 value = email,
                 onValueChange = { email = it },
-                label = { Text("Email") },
+                label = { Text("Email", fontFamily = Nunito) },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(top = 16.dp),
                 shape = RoundedCornerShape(10.dp),
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email)
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
+                textStyle = TextStyle(fontFamily = Nunito)
             )
 
             OutlinedTextField(
                 value = password,
                 onValueChange = { password = it },
-                label = { Text("Password") },
+                label = { Text("Password", fontFamily = Nunito) },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(top = 16.dp),
@@ -343,13 +375,14 @@ fun MtaaniSignUpScreen(navController: NavHostController) {
                             contentDescription = if (passwordVisibility) "Hide password" else "Show password"
                         )
                     }
-                }
+                },
+                textStyle = TextStyle(fontFamily = Nunito)
             )
 
             OutlinedTextField(
                 value = confirmPassword,
                 onValueChange = { confirmPassword = it },
-                label = { Text("Confirm Password") },
+                label = { Text("Confirm Password", fontFamily = Nunito) },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(top = 16.dp),
@@ -363,7 +396,8 @@ fun MtaaniSignUpScreen(navController: NavHostController) {
                             contentDescription = if (confirmPasswordVisibility) "Hide password" else "Show password"
                         )
                     }
-                }
+                },
+                textStyle = TextStyle(fontFamily = Nunito)
             )
 
             Button(
@@ -374,20 +408,22 @@ fun MtaaniSignUpScreen(navController: NavHostController) {
                 colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF00A216)),
                 shape = RoundedCornerShape(10.dp)
             ) {
-                Text("Sign up", color = Color.White, fontSize = 18.sp)
+                Text("Sign up", color = Color.White, fontSize = 18.sp, fontFamily = Nunito)
             }
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Text(
                     text = "Already have an account? ",
                     modifier = Modifier.padding(top = 16.dp),
                     fontWeight = FontWeight.Bold,
-                    fontSize = 14.sp
+                    fontSize = 14.sp,
+                    fontFamily = Nunito
                 )
                 Text(
                     text = "SIGN IN",
                     modifier = Modifier.padding(top = 16.dp),
                     fontWeight = FontWeight.Bold,
-                    color = Color(0xFFFF6F00)
+                    color = Color(0xFFFF6F00),
+                    fontFamily = Nunito
                 )
             }
         }
@@ -399,7 +435,8 @@ fun MtaaniHoverableStyledButton(
     text: String,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    green: Color
+    green: Color,
+    fontFamily: FontFamily = Nunito
 ) {
     val interactionSource = remember { MutableInteractionSource() }
     val isPressed by interactionSource.collectIsPressedAsState()
@@ -423,7 +460,8 @@ fun MtaaniHoverableStyledButton(
             text,
             style = TextStyle(
                 fontSize = 16.sp,
-                fontWeight = FontWeight.Bold
+                fontWeight = FontWeight.Bold,
+                fontFamily = fontFamily
             )
         )
     }
