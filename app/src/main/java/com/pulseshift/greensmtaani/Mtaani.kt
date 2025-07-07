@@ -27,6 +27,7 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
+import com.pulseshift.greensmtaani.ui.theme.Nunito
 
 @Composable
 fun SignInScreen2(
@@ -66,7 +67,7 @@ fun SignInScreen2(
                 .align(Alignment.Center),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text("Sign In", fontSize = 32.sp, fontWeight = FontWeight.SemiBold)
+            Text("Sign In", fontSize = 36.sp,  fontFamily = Nunito, fontWeight = FontWeight.SemiBold)
             Spacer(Modifier.height(70.dp))
             OutlinedTextField(
                 value = email,
@@ -74,8 +75,8 @@ fun SignInScreen2(
                     email = it
                     emailError = null
                 },
-                label = { Text("Email",color = Color.Black) },
-                textStyle = LocalTextStyle.current.copy(fontSize = 18.sp),
+                label = { Text("Email",fontFamily = Nunito,color = Color.Black, fontWeight = FontWeight.SemiBold) },
+                textStyle = LocalTextStyle.current.copy(fontSize = 20.sp),
                 modifier = Modifier
                     .width(350.dp)
                     .height(64.dp)
@@ -114,9 +115,9 @@ fun SignInScreen2(
                     password = it
                     passwordError = null
                 },
-                label = { Text("Password",) },
+                label = { Text("Password",fontFamily = Nunito,color = Color.Black, fontWeight = FontWeight.SemiBold) },
                 isError = passwordError != null,
-                textStyle = LocalTextStyle.current.copy(fontSize = 18.sp),
+                textStyle = LocalTextStyle.current.copy(fontSize = 20.sp),
                 modifier = Modifier
                     .width(350.dp)
                     .height(64.dp)
@@ -173,11 +174,11 @@ fun SignInScreen2(
                             checkmarkColor = Color.White
                         )
                     )
-                    Text("Remember Me", fontSize = 14.sp, color = Color(0xFF000000))
+                    Text("Remember Me", fontSize = 16.sp,  fontFamily = Nunito, fontWeight = FontWeight.Normal)
                 }
                 Spacer(modifier = Modifier.width(70.dp))
                 TextButton(onClick = onForgotPassword) {
-                    Text("Forgot Password?", fontSize = 14.sp, color = Color(0xFF000000))
+                    Text("Forgot Password?", fontSize = 16.sp,  fontFamily = Nunito, color = Color(0xFF000000),fontWeight = FontWeight.Normal)
                 }
             }
             Spacer(Modifier.height(48.dp))
@@ -204,7 +205,7 @@ fun SignInScreen2(
                     .height(48.dp)
             )
             {
-                Text("Sign In", fontSize = 16.sp)
+                Text("Sign In",   fontFamily = Nunito,fontSize = 20.sp,fontWeight = FontWeight.Normal)
             }
             Spacer(Modifier.height(5.dp))
             Row(
@@ -212,7 +213,7 @@ fun SignInScreen2(
                 horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Text("Do not have an account?")
+                Text("Do not have an account?",  fontFamily = Nunito,fontSize = 16.sp)
                 Spacer(Modifier.width(4.dp))
                 TextButton(onClick = onSignUp) {
                     Text(
@@ -220,6 +221,7 @@ fun SignInScreen2(
                         color = Color(0xFFF68F21),
                         fontSize = 18.sp,
                         fontWeight = FontWeight.Bold,
+                        fontFamily = Nunito,
                         textAlign = TextAlign.Center,
                         textDecoration = TextDecoration.Underline
                     )
@@ -250,7 +252,7 @@ fun ForgotPasswordScreen2(onSendOtp: () -> Unit) {
 
             )
 
-        Spacer(modifier = Modifier.height(34.dp))
+        Spacer(modifier = Modifier.height(44.dp))
         Box(
             modifier = Modifier
                 .fillMaxWidth()
@@ -259,9 +261,10 @@ fun ForgotPasswordScreen2(onSendOtp: () -> Unit) {
         ) {
             Text(
                 text = "Forgot Password",
-                fontSize = 24.sp,
-                fontWeight = FontWeight.Bold,
+                fontSize = 40.sp,
+                fontWeight = FontWeight.SemiBold,
                 color = Color.Black,
+                fontFamily = Nunito,
                 modifier = Modifier.align(Alignment.Center)
             )
         }
@@ -271,7 +274,7 @@ fun ForgotPasswordScreen2(onSendOtp: () -> Unit) {
             OutlinedTextField(
                 value = email,
                 onValueChange = { email = it },
-                label = { Text("Enter your Email") },
+                label = { Text("Enter your Email",fontFamily = Nunito, fontWeight = FontWeight.SemiBold,  fontSize = 20.sp) },
                 isError = email.isNotBlank() && !isEmailValid,
                 colors = OutlinedTextFieldDefaults.colors(
                     unfocusedBorderColor = Color.Black,
@@ -294,10 +297,11 @@ fun ForgotPasswordScreen2(onSendOtp: () -> Unit) {
                 Text(
                     "Please enter a valid email address",
                     color = Color.Red,
-                    fontSize = 12.sp
+                    fontSize = 12.sp,
+                    fontFamily = Nunito,
                 )
             }}
-        Spacer(modifier = Modifier.height(36.dp))
+        Spacer(modifier = Modifier.height(44.dp))
         Box(modifier = Modifier.fillMaxWidth(),
             contentAlignment = Alignment.Center){
             Button(
@@ -316,7 +320,8 @@ fun ForgotPasswordScreen2(onSendOtp: () -> Unit) {
             ) {
                 Text(
                     text = "Send OTP",
-                    fontSize = 17.sp,
+                    fontSize = 20.sp,
+                    fontFamily = Nunito,
                     fontWeight = FontWeight.SemiBold,
                     color = Color.White
                 )}
@@ -324,166 +329,6 @@ fun ForgotPasswordScreen2(onSendOtp: () -> Unit) {
     }
 }
 
-@Composable
-fun ResetPasswordScreen2(onChangePassword: () -> Unit) {
-    var newPassword by remember { mutableStateOf("") }
-    var confirmPassword by remember { mutableStateOf("") }
-    var newPasswordVisible by remember { mutableStateOf(false) }
-    var confirmPasswordVisible by remember { mutableStateOf(false) }
-    val passwordsMatch = newPassword == confirmPassword
-    val passwordsNotEmpty = newPassword.isNotBlank() && confirmPassword.isNotBlank()
-    val isFormValid = passwordsMatch && passwordsNotEmpty
-    Column(
-        Modifier
-            .fillMaxSize(),
-        verticalArrangement = Arrangement.Top
-    ) {
-        Image(
-            painter = painterResource(id = R.drawable.forgotpasswordimage1),
-            contentDescription = null,
-            modifier = Modifier
-                .fillMaxWidth(1.00f)
-                .height(442.dp),
-            contentScale = ContentScale.Crop,
-
-            )
-        Spacer(Modifier.height(18.dp))
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 24.dp, vertical = 15.dp),
-            contentAlignment = Alignment.Center
-        ) {
-            Text(
-                "Reset Password",
-                fontSize = 24.sp,
-                fontWeight = FontWeight.Bold,
-                modifier = Modifier.fillMaxWidth(),
-                textAlign = TextAlign.Center
-            )
-        }
-        Spacer(Modifier.height(28.dp))
-        Box(
-            modifier = Modifier.fillMaxWidth(),
-            contentAlignment = Alignment.Center
-        ) {
-            OutlinedTextField(
-                value = newPassword,
-                onValueChange = { newPassword = it },
-                label = { Text("New Password") },
-                isError = newPassword.isBlank() && confirmPassword.isNotBlank(),
-                colors = OutlinedTextFieldDefaults.colors(
-                    unfocusedBorderColor = Color.Black,
-                    focusedLabelColor = Color.Black,
-                    unfocusedLabelColor = Color.Black,
-                    cursorColor = Color.Black,
-                    focusedTextColor = Color.Black,
-                    unfocusedTextColor = Color.Black
-                ),
-                visualTransformation = if (newPasswordVisible) VisualTransformation.None else PasswordVisualTransformation(),
-                trailingIcon = {
-                    val icon =
-                        if (newPasswordVisible) painterResource(id = R.drawable.view) else painterResource(
-                            id = R.drawable.hide
-                        )
-                    IconButton(onClick = { newPasswordVisible = !newPasswordVisible }) {
-                        Icon(
-                            painter = icon,
-                            contentDescription = if (newPasswordVisible) "Hide password" else "Show password",
-                            modifier = Modifier.size(28.dp)
-                        )
-                    }
-                },
-                modifier = Modifier.width(350.dp)
-                    .background(Color.White, shape = RoundedCornerShape(8.dp)),
-                shape = RoundedCornerShape(12.dp),
-                singleLine = true
-            )
-        }
-        Spacer(Modifier.height(30.dp))
-        Box(
-            modifier = Modifier.fillMaxWidth(),
-            contentAlignment = Alignment.Center
-        ) {
-            OutlinedTextField(
-                value = confirmPassword,
-                onValueChange = { confirmPassword = it },
-                label = { Text("Confirm Password") },
-                isError = confirmPassword.isNotEmpty() && !passwordsMatch,
-                colors = OutlinedTextFieldDefaults.colors(
-                    unfocusedBorderColor = Color.Black,
-                    focusedLabelColor = Color.Black,
-                    unfocusedLabelColor = Color.Black,
-                    cursorColor = Color.Black,
-                    focusedTextColor = Color.Black,
-                    unfocusedTextColor = Color.Black
-                ),
-                visualTransformation = if (confirmPasswordVisible) VisualTransformation.None else PasswordVisualTransformation(),
-                trailingIcon = {
-                    val icon =
-                        if (confirmPasswordVisible) painterResource(id = R.drawable.view) else painterResource(
-                            id = R.drawable.hide
-                        )
-                    IconButton(onClick = {
-                        confirmPasswordVisible = !confirmPasswordVisible
-                    }) {
-                        Icon(
-                            painter = icon,
-                            contentDescription = if (confirmPasswordVisible) "Hide password" else "Show password",
-                            modifier = Modifier.size(28.dp)
-                        )
-                    }
-                },
-                modifier = Modifier.width(350.dp)
-                    .background(Color.White, shape = RoundedCornerShape(8.dp)),
-                shape = RoundedCornerShape(12.dp),
-                singleLine = true
-            )
-        }
-        if (confirmPassword.isNotEmpty() && !passwordsMatch) {
-            Box(modifier = Modifier.fillMaxWidth(),
-                contentAlignment = Alignment.Center){
-                Text(
-                    "Passwords do not match.",
-                    color = Color.Red,
-                    fontSize = 14.sp,
-                    modifier = Modifier.padding(top = 4.dp)
-                )
-            }}
-        if (!passwordsNotEmpty && (newPassword.isNotEmpty() || confirmPassword.isNotEmpty())) {
-            Box(modifier = Modifier.fillMaxWidth(),
-                contentAlignment = Alignment.Center){
-                Text(
-                    "Password cannot be empty.",
-                    color = Color.Red,
-                    fontSize = 14.sp,
-                    modifier = Modifier.padding(top = 4.dp)
-                )
-            }}
-        Spacer(Modifier.height(38.dp))
-        Box(
-            modifier = Modifier.fillMaxWidth(),
-            contentAlignment = Alignment.Center
-        ) {
-            Button(
-                onClick = { if (isFormValid) onChangePassword() },
-                enabled = isFormValid,
-                shape = RoundedCornerShape(8.dp),
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = MaterialTheme.colorScheme.primary,
-                    contentColor = Color.White,
-                    disabledContainerColor = MaterialTheme.colorScheme.primary.copy(alpha = 0.8f),
-                    disabledContentColor = Color.White.copy(alpha = 0.8f)
-                ),
-                modifier = Modifier
-                    .width(200.dp)
-                    .height(48.dp)
-            )
-            {
-                Text("Change Password", fontSize = 16.sp)
-            }
-        }
-    }}
 
 @Composable
 fun EnterOtpScreen(
@@ -518,8 +363,9 @@ fun EnterOtpScreen(
         ) {
             Text(
                 "Enter OTP",
-                fontSize = 24.sp,
-                fontWeight = FontWeight.Bold,
+                fontSize = 36.sp,
+                fontWeight = FontWeight.SemiBold,
+                fontFamily = Nunito,
                 textAlign = TextAlign.Center
             )
         }
@@ -531,8 +377,9 @@ fun EnterOtpScreen(
         ) {
             Text(
                 "Enter the code sent to your email.",
-                fontSize = 16.sp,
-                fontWeight = FontWeight.Bold,
+                fontSize = 20.sp,
+                fontWeight = FontWeight.SemiBold,
+                fontFamily = Nunito,
                 textAlign = TextAlign.Center
             )
         }
@@ -583,13 +430,15 @@ fun EnterOtpScreen(
             modifier = Modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text("Didn’t receive an OTP?", color = Color.Black, fontSize = 18.sp)
+            Text("Didn’t receive an OTP?", color = Color.Black, fontSize = 20.sp  ,fontWeight = FontWeight.Normal,
+                fontFamily = Nunito)
             Spacer(Modifier.height(6.dp))
             TextButton(onClick = onResendClick) {
                 Text(
                     "Resend OTP",
                     color = Color(0xFFF68F21),
-                    fontSize = 18.sp,
+                    fontSize = 20.sp,
+                    fontFamily = Nunito,
                     fontWeight = FontWeight.Bold,
                     textAlign = TextAlign.Center,
                     textDecoration = TextDecoration.Underline
@@ -616,7 +465,8 @@ fun EnterOtpScreen(
                 ) {
                     Text(
                         text = "Verify",
-                        fontSize = 17.sp,
+                        fontSize = 20.sp,
+                        fontFamily = Nunito,
                         fontWeight = FontWeight.SemiBold,
                         color = Color.White
                     )
@@ -625,6 +475,170 @@ fun EnterOtpScreen(
         }
     }
 }
+
+@Composable
+fun ResetPasswordScreen2(onChangePassword: () -> Unit) {
+    var newPassword by remember { mutableStateOf("") }
+    var confirmPassword by remember { mutableStateOf("") }
+    var newPasswordVisible by remember { mutableStateOf(false) }
+    var confirmPasswordVisible by remember { mutableStateOf(false) }
+    val passwordsMatch = newPassword == confirmPassword
+    val passwordsNotEmpty = newPassword.isNotBlank() && confirmPassword.isNotBlank()
+    val isFormValid = passwordsMatch && passwordsNotEmpty
+    Column(
+        Modifier
+            .fillMaxSize(),
+        verticalArrangement = Arrangement.Top
+    ) {
+        Image(
+            painter = painterResource(id = R.drawable.forgotpasswordimage1),
+            contentDescription = null,
+            modifier = Modifier
+                .fillMaxWidth(1.00f)
+                .height(442.dp),
+            contentScale = ContentScale.Crop,
+
+            )
+        Spacer(Modifier.height(18.dp))
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 24.dp, vertical = 15.dp),
+            contentAlignment = Alignment.Center
+        ) {
+            Text(
+                "Reset Password",
+                fontSize = 36.sp,
+                fontWeight = FontWeight.SemiBold,
+                fontFamily = Nunito,
+                modifier = Modifier.fillMaxWidth(),
+                textAlign = TextAlign.Center
+            )
+        }
+        Spacer(Modifier.height(28.dp))
+        Box(
+            modifier = Modifier.fillMaxWidth(),
+            contentAlignment = Alignment.Center
+        ) {
+            OutlinedTextField(
+                value = newPassword,
+                onValueChange = { newPassword = it },
+                label = { Text("New Password",fontWeight = FontWeight.SemiBold, fontSize = 20.sp,fontFamily = Nunito) },
+                isError = newPassword.isBlank() && confirmPassword.isNotBlank(),
+                colors = OutlinedTextFieldDefaults.colors(
+                    unfocusedBorderColor = Color.Black,
+                    focusedLabelColor = Color.Black,
+                    unfocusedLabelColor = Color.Black,
+                    cursorColor = Color.Black,
+                    focusedTextColor = Color.Black,
+                    unfocusedTextColor = Color.Black
+                ),
+                visualTransformation = if (newPasswordVisible) VisualTransformation.None else PasswordVisualTransformation(),
+                trailingIcon = {
+                    val icon =
+                        if (newPasswordVisible) painterResource(id = R.drawable.view) else painterResource(
+                            id = R.drawable.hide
+                        )
+                    IconButton(onClick = { newPasswordVisible = !newPasswordVisible }) {
+                        Icon(
+                            painter = icon,
+                            contentDescription = if (newPasswordVisible) "Hide password" else "Show password",
+                            modifier = Modifier.size(28.dp)
+                        )
+                    }
+                },
+                modifier = Modifier.width(350.dp)
+                    .background(Color.White, shape = RoundedCornerShape(8.dp)),
+                shape = RoundedCornerShape(12.dp),
+                singleLine = true
+            )
+        }
+        Spacer(Modifier.height(30.dp))
+        Box(
+            modifier = Modifier.fillMaxWidth(),
+            contentAlignment = Alignment.Center
+        ) {
+            OutlinedTextField(
+                value = confirmPassword,
+                onValueChange = { confirmPassword = it },
+                label = { Text("Confirm Password",fontWeight = FontWeight.SemiBold, fontSize = 20.sp,fontFamily = Nunito) },
+                isError = confirmPassword.isNotEmpty() && !passwordsMatch,
+                colors = OutlinedTextFieldDefaults.colors(
+                    unfocusedBorderColor = Color.Black,
+                    focusedLabelColor = Color.Black,
+                    unfocusedLabelColor = Color.Black,
+                    cursorColor = Color.Black,
+                    focusedTextColor = Color.Black,
+                    unfocusedTextColor = Color.Black
+                ),
+                visualTransformation = if (confirmPasswordVisible) VisualTransformation.None else PasswordVisualTransformation(),
+                trailingIcon = {
+                    val icon =
+                        if (confirmPasswordVisible) painterResource(id = R.drawable.view) else painterResource(
+                            id = R.drawable.hide
+                        )
+                    IconButton(onClick = {
+                        confirmPasswordVisible = !confirmPasswordVisible
+                    }) {
+                        Icon(
+                            painter = icon,
+                            contentDescription = if (confirmPasswordVisible) "Hide password" else "Show password",
+                            modifier = Modifier.size(28.dp)
+                        )
+                    }
+                },
+                modifier = Modifier.width(350.dp)
+                    .background(Color.White, shape = RoundedCornerShape(8.dp)),
+                shape = RoundedCornerShape(12.dp),
+                singleLine = true
+            )
+        }
+        if (confirmPassword.isNotEmpty() && !passwordsMatch) {
+            Box(modifier = Modifier.fillMaxWidth(),
+                contentAlignment = Alignment.Center){
+                Text(
+                    "Passwords do not match.",
+                    color = Color.Red,
+                    fontSize = 14.sp,
+                    fontFamily = Nunito,
+                    modifier = Modifier.padding(top = 4.dp)
+                )
+            }}
+        if (!passwordsNotEmpty && (newPassword.isNotEmpty() || confirmPassword.isNotEmpty())) {
+            Box(modifier = Modifier.fillMaxWidth(),
+                contentAlignment = Alignment.Center){
+                Text(
+                    "Password cannot be empty.",
+                    color = Color.Red,
+                    fontSize = 14.sp,
+                    modifier = Modifier.padding(top = 4.dp)
+                )
+            }}
+        Spacer(Modifier.height(38.dp))
+        Box(
+            modifier = Modifier.fillMaxWidth(),
+            contentAlignment = Alignment.Center
+        ) {
+            Button(
+                onClick = { if (isFormValid) onChangePassword() },
+                enabled = isFormValid,
+                shape = RoundedCornerShape(8.dp),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = MaterialTheme.colorScheme.primary,
+                    contentColor = Color.White,
+                    disabledContainerColor = MaterialTheme.colorScheme.primary.copy(alpha = 0.8f),
+                    disabledContentColor = Color.White.copy(alpha = 0.8f)
+                ),
+                modifier = Modifier
+                    .width(250.dp)
+                    .height(48.dp)
+            )
+            {
+                Text("Change Password",fontWeight = FontWeight.SemiBold, fontSize = 20.sp,fontFamily = Nunito)
+            }
+        }
+    }}
+
 @Composable
 fun RecoverySuccessScreen2(onSignInAgain: () -> Unit) {
     Box(
@@ -658,6 +672,7 @@ fun RecoverySuccessScreen2(onSignInAgain: () -> Unit) {
                 "Congratulations",
                 fontSize = 45.sp,
                 fontWeight = FontWeight.ExtraBold,
+                fontFamily = Nunito,
                 color = Color.Black,
                 modifier = Modifier.fillMaxWidth(),
                 textAlign = TextAlign.Center
@@ -665,12 +680,13 @@ fun RecoverySuccessScreen2(onSignInAgain: () -> Unit) {
             Spacer(Modifier.height(20.dp))
             Text(
                 "Your account has been successfully recovered.",
-                fontSize = 22.sp,
+                fontSize = 25.sp,
                 color = Color.DarkGray,
                 fontWeight = FontWeight.ExtraBold,
-                modifier = Modifier.width(200.dp),
+                modifier = Modifier.width(250.dp),
                 textAlign = TextAlign.Center,
-                letterSpacing = 1.0.sp
+                fontFamily = Nunito,
+                letterSpacing = 2.0.sp
             )
             Spacer(Modifier.height(60.dp))
             Box(
@@ -684,7 +700,7 @@ fun RecoverySuccessScreen2(onSignInAgain: () -> Unit) {
                         .width(200.dp)
                         .height(48.dp)
                 ) {
-                    Text("Sign In", fontSize = 20.sp)
+                    Text("Sign In", fontSize = 20.sp,fontFamily = Nunito,fontWeight = FontWeight.SemiBold)
                 }
             }
         }
