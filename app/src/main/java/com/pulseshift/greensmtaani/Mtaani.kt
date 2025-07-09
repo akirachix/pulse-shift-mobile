@@ -365,7 +365,6 @@ fun AuthScreen(navController: NavController) {
         }
     }
 }
-
 @Composable
 fun MtaaniSignUpScreen(navController: NavHostController, userType: String? = "customer") {
     var name by remember { mutableStateOf("") }
@@ -395,13 +394,13 @@ fun MtaaniSignUpScreen(navController: NavHostController, userType: String? = "cu
         modifier = Modifier
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background)
+            .imePadding()
     ) {
         IconButton(
             onClick = {
                 if (navController.previousBackStackEntry != null) {
                     navController.popBackStack()
                 } else {
-
                     navController.navigate("auth") {
                         popUpTo(navController.graph.startDestinationId) { inclusive = true }
                     }
@@ -418,7 +417,7 @@ fun MtaaniSignUpScreen(navController: NavHostController, userType: String? = "cu
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(horizontal = 20.dp)
+                .padding(horizontal = 24.dp)
                 .verticalScroll(rememberScrollState()),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Top
@@ -447,8 +446,9 @@ fun MtaaniSignUpScreen(navController: NavHostController, userType: String? = "cu
                 },
                 label = { Text("Name", style = MaterialTheme.typography.labelMedium) },
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .height(48.dp),
+                    .width(350.dp)
+                    .height(64.dp)
+                    .background(MaterialTheme.colorScheme.background, shape = RoundedCornerShape(10.dp)),
                 shape = RoundedCornerShape(10.dp),
                 textStyle = MaterialTheme.typography.bodyMedium,
                 isError = nameError != null
@@ -457,8 +457,10 @@ fun MtaaniSignUpScreen(navController: NavHostController, userType: String? = "cu
                 Text(
                     text = nameError ?: "",
                     color = MaterialTheme.colorScheme.error,
-                    fontSize = 11.sp,
-                    modifier = Modifier.align(Alignment.Start)
+                    fontSize = 12.sp,
+                    modifier = Modifier
+                        .align(Alignment.Start)
+                        .padding(start = 16.dp, top = 4.dp)
                 )
             }
             Spacer(modifier = Modifier.height(18.dp))
@@ -470,8 +472,9 @@ fun MtaaniSignUpScreen(navController: NavHostController, userType: String? = "cu
                 },
                 label = { Text("Email/Phone", style = MaterialTheme.typography.labelMedium) },
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .height(48.dp),
+                    .width(350.dp)
+                    .height(64.dp)
+                    .background(MaterialTheme.colorScheme.background, shape = RoundedCornerShape(10.dp)),
                 shape = RoundedCornerShape(10.dp),
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
                 textStyle = MaterialTheme.typography.bodyMedium,
@@ -481,8 +484,10 @@ fun MtaaniSignUpScreen(navController: NavHostController, userType: String? = "cu
                 Text(
                     text = emailError ?: "",
                     color = MaterialTheme.colorScheme.error,
-                    fontSize = 11.sp,
-                    modifier = Modifier.align(Alignment.Start)
+                    fontSize = 12.sp,
+                    modifier = Modifier
+                        .align(Alignment.Start)
+                        .padding(start = 16.dp, top = 4.dp)
                 )
             }
             Spacer(modifier = Modifier.height(18.dp))
@@ -494,8 +499,9 @@ fun MtaaniSignUpScreen(navController: NavHostController, userType: String? = "cu
                 },
                 label = { Text("Password", style = MaterialTheme.typography.labelMedium) },
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .height(48.dp),
+                    .width(350.dp)
+                    .height(64.dp)
+                    .background(MaterialTheme.colorScheme.background, shape = RoundedCornerShape(10.dp)),
                 shape = RoundedCornerShape(10.dp),
                 visualTransformation = if (passwordVisibility) VisualTransformation.None else PasswordVisualTransformation(),
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
@@ -515,8 +521,10 @@ fun MtaaniSignUpScreen(navController: NavHostController, userType: String? = "cu
                 Text(
                     text = passwordError ?: "",
                     color = MaterialTheme.colorScheme.error,
-                    fontSize = 11.sp,
-                    modifier = Modifier.align(Alignment.Start)
+                    fontSize = 12.sp,
+                    modifier = Modifier
+                        .align(Alignment.Start)
+                        .padding(start = 16.dp, top = 4.dp)
                 )
             }
             Spacer(modifier = Modifier.height(18.dp))
@@ -528,8 +536,9 @@ fun MtaaniSignUpScreen(navController: NavHostController, userType: String? = "cu
                 },
                 label = { Text("Confirm Password", style = MaterialTheme.typography.labelMedium) },
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .height(48.dp),
+                    .width(350.dp)
+                    .height(64.dp)
+                    .background(MaterialTheme.colorScheme.background, shape = RoundedCornerShape(10.dp)),
                 shape = RoundedCornerShape(10.dp),
                 visualTransformation = if (confirmPasswordVisibility) VisualTransformation.None else PasswordVisualTransformation(),
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
@@ -549,8 +558,10 @@ fun MtaaniSignUpScreen(navController: NavHostController, userType: String? = "cu
                 Text(
                     text = confirmPasswordError ?: "",
                     color = MaterialTheme.colorScheme.error,
-                    fontSize = 11.sp,
-                    modifier = Modifier.align(Alignment.Start)
+                    fontSize = 12.sp,
+                    modifier = Modifier
+                        .align(Alignment.Start)
+                        .padding(start = 16.dp, top = 4.dp)
                 )
             }
             Spacer(modifier = Modifier.height(24.dp))
@@ -577,7 +588,7 @@ fun MtaaniSignUpScreen(navController: NavHostController, userType: String? = "cu
                     }
                 },
                 modifier = Modifier
-                    .fillMaxWidth()
+                    .width(350.dp)
                     .height(48.dp),
                 colors = ButtonDefaults.buttonColors(
                     containerColor = Color(0xFF00A216),
@@ -610,11 +621,11 @@ fun MtaaniSignUpScreen(navController: NavHostController, userType: String? = "cu
                     modifier = Modifier.clickable { navController.navigate("signin") }
                 )
             }
+            Spacer(modifier = Modifier.height(24.dp))
             Spacer(modifier = Modifier.weight(1f))
         }
     }
 }
-
 @Composable
 fun HoverableButton(
     onClick: () -> Unit,
