@@ -1,26 +1,21 @@
-
 package com.pulseshift.greensmtaani
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.activity.enableEdgeToEdge
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.ui.Modifier
-import com.pulseshift.greensmtaani.ui.theme.GreensMtaaniTheme
+import com.pulseshift.greensmtaani.ui.theme.AppTypography
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
         setContent {
-            GreensMtaaniTheme {
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    Navigation()
-                }
+            MaterialTheme(
+                typography = AppTypography
+            ) {
+                AppNavigation()
             }
         }
     }

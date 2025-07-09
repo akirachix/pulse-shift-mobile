@@ -1,20 +1,21 @@
 package com.pulseshift.greensmtaani
 
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.pulseshift.greensmtaani.ui.theme.Nunito
 
 @Composable
-fun Navigation() {
-    val navController = rememberNavController()
+fun AppNavigation() {
+    val navController: NavHostController = rememberNavController()
     NavHost(navController = navController, startDestination = "splash") {
         composable("splash") {
             MtaaniWelcomeSplashScreen(navController)
@@ -31,17 +32,45 @@ fun Navigation() {
         composable("auth") {
             AuthScreen(navController)
         }
-        composable("signup") {
-            MtaaniSignUpScreen(navController)
+        composable("signup/{userType}") { backStackEntry ->
+            val userType = backStackEntry.arguments?.getString("userType") ?: "customer"
+            MtaaniSignUpScreen(navController, userType)
         }
         composable("signin") {
+            SignInScreen2(
+                onForgotPassword = { navController.navigate("forgot_password") },
+                onSignIn = { navController.navigate("home") { popUpTo("auth") { inclusive = true } } },
+                onSignUp = { navController.navigate("signup/customer") },
+                navController = navController
+            )
+        }
+        composable("forgot_password") {
+            ForgotPasswordScreen2(
+                onSendOtp = { navController.navigate("enter_otp") },
+                navController = navController
+            )
+        }
+        composable("enter_otp") {
+            EnterOtpScreen(
+                onVerifyClick = { navController.navigate("reset_password") },
+                onResendClick = { /* TODO: Implement resend OTP logic */ },
+                navController = navController
+            )
+        }
+        composable("reset_password") {
+            resettingpassword2(navController = navController)
+        }
+        composable("recovery_success") {
+            RecoverySuccessScreen2(navController = navController)
+        }
+        composable("home") {
             Text(
-                text = "Sign In Screen (To Be Implemented)",
+                text = "Welcome to Greens Mtaani!",
                 modifier = Modifier.fillMaxSize(),
                 textAlign = TextAlign.Center,
-                fontFamily = Nunito,
-                fontSize = 20.sp,
-                fontWeight = FontWeight.Medium
+                style = MaterialTheme.typography.titleLarge,
+                fontWeight = FontWeight.Bold,
+                fontSize = 24.sp
             )
         }
     }
