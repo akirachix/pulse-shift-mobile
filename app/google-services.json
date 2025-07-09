@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "902765269570",
+    "project_id": "greens-mtaani",
+    "storage_bucket": "greens-mtaani.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:902765269570:android:10b2dbaaa10a78cb9a93db",
+        "android_client_info": {
+          "package_name": "com.pulseshift.greensmtaani"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDngVet6dZitdoOJUohNAoGTLfBoI0__O4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
